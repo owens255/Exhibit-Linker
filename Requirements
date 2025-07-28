@@ -1,0 +1,25 @@
+# Exhibit Linker - Word & Excel Hyperlink Automation
+# Dependencies for creating relative hyperlinks in documents
+
+# GUI Framework
+ttkbootstrap>=1.10.1
+
+# PDF Processing (Commercial-Friendly Alternative to PyMuPDF)
+pypdf>=3.0.0
+
+# Windows COM Interface for Office Applications
+pywin32>=306
+
+# Standard Library Dependencies (included with Python)
+# tkinter - GUI toolkit (built-in)
+# os - Operating system interface (built-in)
+# re - Regular expressions (built-in)
+# tempfile - Temporary file operations (built-in)
+# shutil - File operations (built-in)
+# time - Time utilities (built-in)
+# difflib - Text comparison (built-in)
+
+# Platform Requiremennts
+# Windows
+# Word
+# Excel
