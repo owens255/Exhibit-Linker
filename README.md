@@ -27,8 +27,11 @@ python exhibit_linker.py
 # Requirements
 
 Python: 3.7 or higher
+
 Operating System: Windows
+
 Input Formats: Word (.docx) or Excel (.xlsx) files
+
 Output Formats: PDF, Excel (.xlsx), Word (.docx)
 
 
