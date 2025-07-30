@@ -24,21 +24,3 @@ pip install -r requirements.txt
 **Run the application**
 python exhibit_linker.py
 
-# Requirements
-
-Python: 3.7 or higher
-
-Operating System: Windows
-
-Input Formats: Word (.docx) or Excel (.xlsx) files
-
-Output Formats: PDF, Excel (.xlsx), Word (.docx)
-
-
-# Technical Features
-Regex-powered citation detection
-Intelligent file matching algorithms
-Cross-platform relative path handling
-Chrome-optimized link formatting
-Automatic file name sanitization
-Bates number page-level navigation
