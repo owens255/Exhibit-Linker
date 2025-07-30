@@ -11,7 +11,8 @@ Further, Bates citations will open the operative PDF even if the cited page is m
 To best ensure compatabiltity across non-Acrobat PDF viewers (e.g., if the end user is going to use Chrome to view the output file), it is best that the linked documents lack spacing and periods in their filenames. This is because such formatting can confuse Chrome into thinking that the links are to the internet. This script can modify the linked files' names accordingly (if the user chooses) by swapping in underscores (e.g. Ex. 1 Memo.pdf becomes Ex_1_Memo.pdf).
 
 # Quick Start
-bash# Clone the repository
+bash
+# Clone the repository
 git clone https://github.com/yourusername/exhibit-linker.git
 
 # Navigate to the project directory
