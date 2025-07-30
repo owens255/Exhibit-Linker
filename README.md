@@ -1,4 +1,4 @@
-#📎 Exhibit-Linker
+# Exhibit-Linker
 
 # Overview
 Dynamically linked files are helpful for submitting legal memoranda, investigative reports, and other documents where you want the recipient to have instantaneous access to the files cited in your work product.
