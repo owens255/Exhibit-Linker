@@ -51,11 +51,11 @@ The script intelligently matches various citation formats:
 - **Bates Numbers**: `SMITH_001`, `DOC-2023-045`, `CASE_A_123`
 - **Page-Specific**: Opens to exact Bates page within multi-page PDFs (if PDF is viewed via Chrome)
 
-### 🔧 File Processing Options
+### 🔧 File Processing 
 
-- **✅ Dynamic Links**: Work across different computers and platforms
+- **✅ Dynamic Links**: Work across different computers 
 - **📱 Chrome Optimization**: Direct page navigation in Chrome browser
-- **🔄 Filename Sanitization**: Replace spaces/periods with underscores for compatibility
+- **🔄 Filename Sanitization**: Replace spaces/periods with underscores for compatibility (optional)
 - **📂 Relative Paths**: Maintain links when files are moved together
 
 # Pointers
