@@ -3851,7 +3851,7 @@ Static Hyperlinks: These hyperlinks are hard linked to a given location. So gene
                     print("██   ██║██║   ██║██╔══██╗    ██║     ██║   ██║██║╚██╔╝██║██╔═══╝ ██║     ██╔══╝     ██║   ██╔══╝  ╚═╝")
                     print("╚█████╔╝╚██████╔╝██████╔╝    ╚██████╗╚██████╔╝██║ ╚═╝ ██║██║     ███████╗███████╗   ██║   ███████╗██╗")
                     print(" ╚════╝  ╚═════╝ ╚═════╝      ╚═════╝ ╚═════╝ ╚═╝     ╚═╝╚═╝     ╚══════╝╚══════╝   ╚═╝   ╚══════╝╚═╝")
-                    print(f"Word processing complete! {links_added} links created.\n")
+                    print(f"Word processing complete. {links_added} links created.\n")
                 else:
                     self.status_text.set("Document processed but not saved")
                     messagebox.showwarning("Warning", "Document processed but not saved.")
