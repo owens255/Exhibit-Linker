@@ -13,7 +13,7 @@ To best ensure compatabiltity across non-Acrobat PDF viewers (e.g., if the end u
 # Quick Start
 
 **Clone the repository**
-git clone https://github.com/yourusername/exhibit-linker.git
+git clone https://github.com/owens255/exhibit-linker.git
 
 **Navigate to the project directory**
 cd exhibit-linker
