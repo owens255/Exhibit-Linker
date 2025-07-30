@@ -47,9 +47,9 @@ graph TD
 
 The script intelligently matches various citation formats:
 
-- **Exhibit References**: `Ex. 1`, `Exhibit A`, `Exh. 12`
+- **Exhibit References**: `Ex. 1`, `Exhibit A`
 - **Bates Numbers**: `SMITH_001`, `DOC-2023-045`, `CASE_A_123`
-- **Page-Specific**: Opens to exact Bates page within multi-page PDFs
+- **Page-Specific**: Opens to exact Bates page within multi-page PDFs (if PDF is viewed via Chrome)
 
 ### 🔧 File Processing Options
 
