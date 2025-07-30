@@ -13,6 +13,51 @@ To best ensure compatabiltity across non-Acrobat PDF viewers (e.g., if the end u
 
 ![Screenshot A](./images/Screenshot_A.png)
 
+## 🔄 How It Works
+
+### Step-by-Step Workflow
+
+```mermaid
+graph TD
+    A[📄 Select Input Document] --> B[Word/Excel File]
+    B --> C[🔍 Scan for Citations]
+    C --> D[Exhibit References Found]
+    C --> E[Bates Numbers Found]
+    D --> F[📁 Search Document Folder]
+    E --> F
+    F --> G[🎯 Match Files with Citations]
+    G --> H[🔗 Create Dynamic Links]
+    H --> I[📊 Generate Output Files]
+    I --> J[📑 Linked PDF]
+    I --> K[📈 Linked Excel]
+    I --> L[📝 Static Word Doc]
+```
+
+### Process Details
+
+| Step | What Happens | Result |
+|------|-------------|---------|
+| **1. Document Input** | Select your Word or Excel file containing exhibit references | Script reads document content |
+| **2. Citation Detection** | Regex patterns scan for exhibit citations and Bates numbers | All references identified |
+| **3. File Matching** | Search designated folder for matching exhibit files | Files paired with citations |
+| **4. Link Creation** | Generate dynamic hyperlinks with relative paths | Cross-platform compatibility |
+| **5. Output Generation** | Create new files with embedded links | PDF, Excel, and Word outputs |
+
+### 🎯 Smart Matching Examples
+
+The script intelligently matches various citation formats:
+
+- **Exhibit References**: `Ex. 1`, `Exhibit A`, `Exh. 12`
+- **Bates Numbers**: `SMITH_001`, `DOC-2023-045`, `CASE_A_123`
+- **Page-Specific**: Opens to exact Bates page within multi-page PDFs
+
+### 🔧 File Processing Options
+
+- **✅ Dynamic Links**: Work across different computers and platforms
+- **📱 Chrome Optimization**: Direct page navigation in Chrome browser
+- **🔄 Filename Sanitization**: Replace spaces/periods with underscores for compatibility
+- **📂 Relative Paths**: Maintain links when files are moved together
+
 # Pointers
 
 Ensure that Word and Excel are closed before running the script.
