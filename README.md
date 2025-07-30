@@ -33,15 +33,6 @@ graph TD
     I --> L[📝 Static Word Doc]
 ```
 
-### Process Details
-
-| Step | What Happens | Result |
-|------|-------------|---------|
-| **1. Document Input** | Select your Word or Excel file containing exhibit references | Script reads document content |
-| **2. Citation Detection** | Regex patterns scan for exhibit citations and Bates numbers | All references identified |
-| **3. File Matching** | Search designated folder for matching exhibit files | Files paired with citations |
-| **4. Link Creation** | Generate dynamic hyperlinks with relative paths | Portable compatibility |
-| **5. Output Generation** | Create new files with embedded links | PDF, Excel, and Word outputs |
 
 ### 🎯 Smart Matching Examples
 
