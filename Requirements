@@ -4,7 +4,7 @@
 # GUI Framework
 ttkbootstrap>=1.10.1
 
-# PDF Processing (Commercial-Friendly Alternative to PyMuPDF)
+# PDF Processing 
 pypdf>=3.0.0
 
 # Windows COM Interface for Office Applications
