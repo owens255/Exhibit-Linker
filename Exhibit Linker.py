@@ -4149,7 +4149,7 @@ Static Hyperlinks: These hyperlinks are hard linked to a given location. So gene
         
         
         # MODE SELECTION SECTION (SIMPLIFIED)
-        mode_frame = ttk.LabelFrame(main_frame, text="Processing Mode", padding=15)
+        mode_frame = ttk.LabelFrame(main_frame, text="Processing Mode (Exit Word/Excel First)", padding=15)
         mode_frame.pack(fill=X, pady=(0, 15))
         
         # Radio buttons for main mode selection (just Word vs Excel)
