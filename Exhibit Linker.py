@@ -456,7 +456,7 @@ class WordAutoLinkerCOM:
                 time.sleep(0.1)  # Brief pause before retry
 
     def process_range_for_hyperlinks(self, range_obj, range_name=""):
-        """Process a Word range (paragraph, footnote, etc.) for hyperlinks"""
+        """Process a Word range (paragraph, footnote, etc.) for hyperlinks - FIXED VERSION"""
         if not range_obj:
             return 0
         
@@ -511,13 +511,90 @@ class WordAutoLinkerCOM:
         
         links_added = 0
         
-        # Process each reference
+        # CRITICAL: Process each reference with improved range handling
         for ref in references:
             try:
-                # Create a range for this specific reference
-                ref_range = range_obj.Duplicate
-                ref_range.Start = range_obj.Start + ref['start_pos']
-                ref_range.End = range_obj.Start + ref['end_pos']
+                # Re-read the range text to account for any changes from previous hyperlinks
+                current_range_text = range_obj.Text
+                
+                # Verify the text still matches at the expected position
+                expected_text = ref['reference']
+                actual_text_at_pos = current_range_text[ref['start_pos']:ref['end_pos']]
+                
+                print(f"  Expected: '{expected_text}' vs Actual: '{actual_text_at_pos}'")
+                
+                # If the text doesn't match exactly, try to find it nearby
+                if actual_text_at_pos != expected_text:
+                    print(f"  Position mismatch detected, searching for correct position...")
+                    
+                    # Search for the exact text in a small window around the expected position
+                    search_window_start = max(0, ref['start_pos'] - 5)
+                    search_window_end = min(len(current_range_text), ref['end_pos'] + 5)
+                    search_window = current_range_text[search_window_start:search_window_end]
+                    
+                    # Try to find the exact match within the window
+                    local_match = re.search(re.escape(expected_text), search_window, re.IGNORECASE)
+                    if local_match:
+                        # Adjust positions based on the local match
+                        corrected_start = search_window_start + local_match.start()
+                        corrected_end = search_window_start + local_match.end()
+                        print(f"  Corrected position: {corrected_start}-{corrected_end}")
+                        ref['start_pos'] = corrected_start
+                        ref['end_pos'] = corrected_end
+                    else:
+                        print(f"  Could not find exact match, skipping this reference")
+                        continue
+                
+                # Create a fresh range for this specific reference using corrected positions
+                try:
+                    # Method 1: Use Find method for more reliable text selection
+                    ref_range = range_obj.Duplicate
+                    
+                    # Reset the range to search the entire paragraph
+                    ref_range.Start = range_obj.Start
+                    ref_range.End = range_obj.End
+                    
+                    # Use Word's Find method to locate the exact text
+                    find_success = ref_range.Find.Execute(
+                        FindText=expected_text,
+                        MatchCase=False,
+                        MatchWholeWord=False,
+                        MatchWildcards=False,
+                        Forward=True,
+                        Wrap=0  # wdFindStop
+                    )
+                    
+                    if find_success:
+                        print(f"  Find method successful for '{expected_text}'")
+                        
+                        # Verify the found text matches exactly
+                        if ref_range.Text.strip().lower() == expected_text.strip().lower():
+                            print(f"  Found text verification passed")
+                        else:
+                            print(f"  Found text mismatch: '{ref_range.Text}' vs '{expected_text}'")
+                            # Fall back to manual positioning
+                            raise Exception("Find method found wrong text")
+                    else:
+                        # Find failed, fall back to manual positioning
+                        print(f"  Find method failed, using manual positioning")
+                        ref_range.Start = range_obj.Start + ref['start_pos']
+                        ref_range.End = range_obj.Start + ref['end_pos']
+                        
+                except Exception as range_error:
+                    print(f"  Error with Find method: {range_error}")
+                    # Fallback to original method with corrected positions
+                    ref_range = range_obj.Duplicate
+                    ref_range.Start = range_obj.Start + ref['start_pos']
+                    ref_range.End = range_obj.Start + ref['end_pos']
+                
+                # Double-check the range text before creating hyperlink
+                final_range_text = ref_range.Text
+                print(f"  Final range text: '{final_range_text}' (expected: '{expected_text}')")
+                
+                # Only proceed if we have the right text
+                if final_range_text.strip().lower() != expected_text.strip().lower():
+                    print(f"  Final text verification failed, skipping hyperlink creation")
+                    continue
                 
                 # Handle different file info types
                 file_info = ref['file_info']
@@ -526,7 +603,6 @@ class WordAutoLinkerCOM:
                     file_path = file_info['path']
                     page_number = file_info['page']
                     relative_path = self.get_relative_path_from_original_doc(file_path)
-                    # Add page anchor for PDF
                     link_target = f"{relative_path}#page={page_number}"
                     screen_tip = f"Link to {os.path.basename(file_path)} page {page_number} (Bates {file_info['bates_number']})"
                 else:
@@ -536,11 +612,10 @@ class WordAutoLinkerCOM:
                     link_target = relative_path
                     screen_tip = f"Link to {os.path.basename(file_path)}"
                 
-                print(f"  Creating hyperlink: '{link_target}' for text '{ref['reference']}' at positions {ref['start_pos']}-{ref['end_pos']}")
+                print(f"  Creating hyperlink: '{link_target}' for text '{final_range_text}'")
                 
                 try:
                     # PRESERVE ORIGINAL FORMATTING FIRST
-                    # Capture the original formatting before creating the hyperlink
                     original_formatting = {}
                     try:
                         original_formatting['italic'] = ref_range.Font.Italic
@@ -551,26 +626,25 @@ class WordAutoLinkerCOM:
                     except Exception as e:
                         print(f"  Could not capture original formatting: {e}")
                     
-                    # Simple, reliable hyperlink creation
+                    # Create hyperlink with explicit text to display
                     hyperlink = range_obj.Hyperlinks.Add(
                         Anchor=ref_range,
                         Address=link_target,
-                        TextToDisplay=ref['reference'],
+                        TextToDisplay=expected_text,  # Use the expected text, not the range text
                         ScreenTip=screen_tip
                     )
                     
-                    # FORCE CONSISTENT HYPERLINK FORMATTING AND PRESERVE ORIGINAL STYLE
+                    # Apply formatting
                     try:
                         hyperlink_range = hyperlink.Range
                         
-                        # Method 1: Character-by-character formatting (most reliable for missing digit issue)
+                        # Character-by-character formatting
                         char_count = hyperlink_range.Characters.Count
                         print(f"    Formatting {char_count} characters individually...")
                         
                         for i in range(char_count):
                             try:
                                 char = hyperlink_range.Characters(i + 1)
-                                char_text = char.Text
                                 
                                 # Apply hyperlink color and underline based on setting
                                 if self.use_black_hyperlinks:
@@ -585,36 +659,13 @@ class WordAutoLinkerCOM:
                                     char.Font.Italic = True
                                 if 'bold' in original_formatting and original_formatting['bold']:
                                     char.Font.Bold = True
-                                if 'font_name' in original_formatting and original_formatting['font_name']:
-                                    try:
-                                        char.Font.Name = original_formatting['font_name']
-                                    except:
-                                        pass  # Skip if font name can't be set
-                                if 'font_size' in original_formatting and original_formatting['font_size']:
-                                    try:
-                                        char.Font.Size = original_formatting['font_size']
-                                    except:
-                                        pass  # Skip if font size can't be set
-                                
-                                print(f"      Char {i + 1}: '{char_text}' formatted blue")
-                                        
+                                    
                             except Exception as char_error:
                                 print(f"    Could not format character {i + 1}: {char_error}")
                                 continue
                         
-                        # Double-check: Force format the last character specifically if it's a digit
+                        # Apply to entire range as backup
                         try:
-                            last_char = hyperlink_range.Characters(char_count)
-                            if last_char.Text.isdigit():
-                                last_char.Font.Color = 16711680  # Blue
-                                last_char.Font.Underline = True
-                                print(f"      Extra formatting applied to last digit: '{last_char.Text}'")
-                        except Exception as last_char_error:
-                            print(f"    Could not apply extra formatting to last character: {last_char_error}")
-                        
-                        # Method 2: Apply to entire range as backup
-                        try:
-                            # Apply color and underline based on setting
                             if self.use_black_hyperlinks:
                                 hyperlink_range.Font.Color = 0  # Black
                                 hyperlink_range.Font.Underline = False  # No underline for black mode
@@ -631,23 +682,14 @@ class WordAutoLinkerCOM:
                         except Exception as range_error:
                             print(f"    Range formatting failed: {range_error}")
                         
-                        # Method 3: Force refresh the range
-                        try:
-                            hyperlink_range.Select()  # This forces Word to refresh the formatting
-                            # Deselect immediately
-                            self.doc.Range(0, 0).Select()
-                        except:
-                            pass  # Selection not critical
-                        
                         print(f"  ✓ Applied consistent formatting with original style preserved")
                         
                     except Exception as format_error:
                         print(f"  Warning: Could not apply consistent formatting: {format_error}")
-                        # Hyperlink still works, just might have inconsistent appearance
                     
                     # Track this hyperlink for PDF processing
                     hyperlink_info = {
-                        'text': ref['reference'],
+                        'text': expected_text,
                         'range_start': ref_range.Start,
                         'range_end': ref_range.End
                     }
@@ -675,7 +717,7 @@ class WordAutoLinkerCOM:
                     print(f"  Error creating hyperlink: {e}")
                     continue
                 
-                print(f"  ✓ Added hyperlink for '{ref['reference']}'")
+                print(f"  ✓ Added hyperlink for '{expected_text}'")
                 links_added += 1
                 
             except Exception as e:
