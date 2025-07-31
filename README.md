@@ -49,11 +49,11 @@ The script intelligently matches various citation formats:
 - **🔄 Filename Sanitization**: Replace spaces/periods with underscores for compatibility (optional)
 - **📂 Relative Paths**: Maintain links when files are moved together
 
-# Pointers
+# Tips
 
 Ensure that Word and Excel are closed before running the script.
 
-Zip your resulting files if sending to other users.
+Zip your resulting files if sending to others for easy transport. 
 
 
 # Quick Start
