@@ -3417,14 +3417,14 @@ class ExhibitAnchorApp:
         create_table_cell(table_frame, "Word", 1, 0)
         create_table_cell(table_frame, "Static Links", 1, 1)
         create_table_cell(table_frame, "N/A", 1, 2)
-        create_table_cell(table_frame, "Dynamic Links (if the PDF is opened via Chrome, Bates links will bring you to the specific page of the linked PDF).", 
+        create_table_cell(table_frame, "Relative Links (if the PDF is opened via Chrome, Bates links will bring you to the specific page of the linked PDF).", 
                         1, 3, wraplength=300)
         
         # Row 2: Excel
         create_table_cell(table_frame, "Excel", 2, 0)
         create_table_cell(table_frame, "N/A", 2, 1)
-        create_table_cell(table_frame, "Dynamic Links", 2, 2)
-        create_table_cell(table_frame, "Dynamic Links (if the PDF is opened via Chrome, Bates links will bring you to the specific page of the linked PDF)", 2, 3, wraplength=300)
+        create_table_cell(table_frame, "Relative Links", 2, 2)
+        create_table_cell(table_frame, "Relative Links (if the PDF is opened via Chrome, Bates links will bring you to the specific page of the linked PDF)", 2, 3, wraplength=300)
         
         # Configure grid weights for proper resizing
         for i in range(4):
