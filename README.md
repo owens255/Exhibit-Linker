@@ -1,9 +1,9 @@
 # Exhibit-Linker
 
 # Overview
-Dynamically linked files are helpful for submitting legal memoranda, investigative reports, and other documents where you want the recipient to have instantaneous access to the files cited in your work product.
+Document hyperlinking is helpful for submitting legal memoranda, investigative reports, and other documents where you want the recipient to have instantaneous access to the files cited in your work product.
 
-Exhibit Linker is a Python script that allows users to select a Word or Excel file to automatically create dynamic links to exhibits or Bates-stamped documents. The script reads your Word or Excel document, locates exhibit or Bates citations, uses regex to find the cited documents in a user-designed folder, and then creates dynamically linked Excel and PDF output files. A Word documents can also be created, but the linking therein will be static only (unlike dynamic links, static links will only work on the script user's computer).
+Exhibit Linker is a Python script that allows users to select a Word or Excel file to automatically create relative links to exhibits or Bates-stamped documents. The script reads your Word or Excel document, locates exhibit or Bates citations, uses regex to find the cited documents in a user-designed folder, and then creates relatively linked Excel and PDF output files. A Word documents can also be created, but the linking therein will be static only (unlike relative links, static links will only work on the script user's computer).
 
 As long as your exhibits are in the same folder as your PDF or are otherwise in the same relative position (e.g., the parent PDF in one folder and exhibits in a given subfolder), the linking in the output PDF or Excel will work. Even if the PDF and exhibits are moved elsewhere on your hard drive or to another PC, so long as the exhibits travel with it in in the same relative position, the linking will work.
 
@@ -26,7 +26,7 @@ graph TD
     D --> F[📁 Search Document Folder]
     E --> F
     F --> G[🎯 Match Files with Citations]
-    G --> H[🔗 Create Dynamic Links]
+    G --> H[🔗 Create relative Links]
     H --> I[📊 Generate Output Files]
     I --> J[📑 Linked PDF]
     I --> K[📈 Linked Excel]
@@ -44,7 +44,7 @@ The script intelligently matches various citation formats:
 
 ### 🔧 File Processing 
 
-- **✅ Dynamic Links**: Work across different computers 
+- **✅ Relative Links**: Work across different computers 
 - **📱 Chrome Optimization**: Direct page navigation in Chrome browser
 - **🔄 Filename Sanitization**: Replace spaces/periods with underscores for compatibility (optional)
 - **📂 Relative Paths**: Maintain links when files are moved together
