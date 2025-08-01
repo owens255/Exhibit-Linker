@@ -3550,7 +3550,7 @@ Static Hyperlinks: These hyperlinks are hard linked to a given location. So gene
 
     Requirement: Bates PDFs must be numbered sequentially"""
         
-        info_text += "\n\nCopyright © Alexander Owens, 2025. All rights reserved. amo@pietragallo.com"
+        info_text += "\n\nCopyright © Alex Owens, 2025. All rights reserved. amo@pietragallo.com"
         self.info_text_var.set(info_text)
 
     def get_word_linker(self):
