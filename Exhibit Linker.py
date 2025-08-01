@@ -133,14 +133,23 @@ class WordAutoLinkerCOM:
         return [
             rf'{escaped_prefix}(\d+)',  # SMITH_0001, SMITH_123, etc.
         ]
-    
+
     def initialize_word(self):
-        """Initialize Word COM application with better error handling"""
+        """Initialize Word COM application with enhanced error handling"""
         if self.word_app is not None:
             return True
             
         try:
             print("Initializing Word COM application...")
+            
+            # Clear COM cache first to fix CLSIDtoPackageMap errors
+            try:
+                gen_py_path = os.path.join(tempfile.gettempdir(), "gen_py")
+                if os.path.exists(gen_py_path):
+                    shutil.rmtree(gen_py_path)
+                    print("COM cache cleared")
+            except Exception as cache_error:
+                print(f"Could not clear COM cache: {cache_error}")
             
             # Initialize COM
             pythoncom.CoInitialize()
@@ -150,13 +159,18 @@ class WordAutoLinkerCOM:
                 self.word_app = win32com.client.GetActiveObject("Word.Application")
                 print("Connected to existing Word instance")
             except:
-                # Create new Word instance
-                self.word_app = win32com.client.Dispatch("Word.Application")
-                print("Created new Word instance")
+                # Create new Word instance using late binding (more robust)
+                try:
+                    self.word_app = win32com.client.Dispatch("Word.Application")
+                    print("Created new Word instance with late binding")
+                except Exception as dispatch_error:
+                    # Try dynamic dispatch as fallback
+                    self.word_app = win32com.client.dynamic.Dispatch("Word.Application")
+                    print("Created new Word instance with dynamic dispatch")
             
             # Keep Word hidden but responsive
             self.word_app.Visible = False
-            self.word_app.DisplayAlerts = False  # Suppress alerts
+            self.word_app.DisplayAlerts = False
             
             # Test that Word is working
             doc_count = self.word_app.Documents.Count
@@ -167,7 +181,7 @@ class WordAutoLinkerCOM:
         except Exception as e:
             print(f"Error initializing Word: {e}")
             self.word_app = None
-            raise Exception(f"Could not initialize Microsoft Word: {str(e)}\n\nPlease ensure:\n1. Word is installed\n2. Word is not currently busy\n3. You have proper permissions")
+            raise Exception(f"Could not initialize Microsoft Word: {str(e)}\n\nPlease ensure:\n1. Word is installed\n2. Word is not currently busy\n3. You have proper permissions\n4. Try closing all Word instances and restarting")
 
     def select_word_document(self):
         """Select the Word document to process"""
