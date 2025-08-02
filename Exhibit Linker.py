@@ -652,31 +652,28 @@ class WordAutoLinkerCOM:
                     try:
                         hyperlink_range = hyperlink.Range
                         
-                        # Character-by-character formatting
-                        char_count = hyperlink_range.Characters.Count
-                        print(f"    Formatting {char_count} characters individually...")
-                        
-                        for i in range(char_count):
-                            try:
-                                char = hyperlink_range.Characters(i + 1)
-                                
-                                # Apply hyperlink color and underline based on setting
-                                if self.use_black_hyperlinks:
-                                    char.Font.Color = 0  # Black color
-                                    char.Font.Underline = False  # No underline for black mode
-                                else:
-                                    char.Font.Color = 16711680  # Blue color  
-                                    char.Font.Underline = True
-                                
-                                # Preserve original formatting
-                                if 'italic' in original_formatting and original_formatting['italic']:
-                                    char.Font.Italic = True
-                                if 'bold' in original_formatting and original_formatting['bold']:
-                                    char.Font.Bold = True
-                                    
-                            except Exception as char_error:
-                                print(f"    Could not format character {i + 1}: {char_error}")
-                                continue
+                        # OPTIMIZED: Range-level formatting (much faster)
+                        print(f"    Applying optimized range-level formatting...")
+
+                        try:
+                            # Apply hyperlink color and underline to entire range
+                            if self.use_black_hyperlinks:
+                                hyperlink_range.Font.Color = 0  # Black color
+                                hyperlink_range.Font.Underline = False  # No underline for black mode
+                            else:
+                                hyperlink_range.Font.Color = 16711680  # Blue color  
+                                hyperlink_range.Font.Underline = True
+                            
+                            # Preserve original formatting (if it was consistent across the range)
+                            if 'italic' in original_formatting and original_formatting['italic']:
+                                hyperlink_range.Font.Italic = True
+                            if 'bold' in original_formatting and original_formatting['bold']:
+                                hyperlink_range.Font.Bold = True
+                            
+                            print(f"    ✓ Optimized formatting applied successfully")
+                            
+                        except Exception as format_error:
+                            print(f"    Optimized formatting failed: {format_error}")
                         
                         # Apply to entire range as backup
                         try:
