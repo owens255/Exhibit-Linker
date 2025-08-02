@@ -53,7 +53,7 @@ The script intelligently matches various citation formats:
 
 - Ensure that Word and Excel are closed before running the script.
 
-- Be patient.  Even if the script appears stalled (e.g., on very large documents), it is likely still processing your file. 
+- This script relies on COM automation.  If the script is running slow, your antivirus software is likely the culprit. 
 
 - Zip your resulting files if sending to others for easy transport. 
 
