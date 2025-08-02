@@ -51,9 +51,11 @@ The script intelligently matches various citation formats:
 
 # Tips
 
-Ensure that Word and Excel are closed before running the script.
+- Ensure that Word and Excel are closed before running the script.
 
-Zip your resulting files if sending to others for easy transport. 
+- Be patient.  Even if the script appears stalled (e.g., on very large documents), it is likely still processing your file. 
+
+- Zip your resulting files if sending to others for easy transport. 
 
 
 # Quick Start
