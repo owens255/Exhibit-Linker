@@ -135,7 +135,7 @@ class WordAutoLinkerCOM:
         ]
 
     def initialize_word(self):
-        """Initialize Word COM application with enhanced error handling"""
+        """Initialize Word COM application with enhanced error handling and corporate performance optimizations"""
         if self.word_app is not None:
             return True
             
@@ -172,9 +172,36 @@ class WordAutoLinkerCOM:
             self.word_app.Visible = False
             self.word_app.DisplayAlerts = False
             
+            # ENHANCED PERFORMANCE SETTINGS FOR CORPORATE ENVIRONMENTS
+            print("Applying corporate performance optimizations...")
+            try:
+                self.word_app.ScreenUpdating = False  # Stop screen refreshing
+                self.word_app.EnableEvents = False    # Disable Word events
+                print("✓ Screen updating and events disabled")
+            except Exception as e:
+                print(f"Could not disable screen updating/events: {e}")
+            
+            try:
+                # Disable spell/grammar checking that slows down corporate environments
+                self.word_app.Options.CheckGrammarAsYouType = False
+                self.word_app.Options.CheckSpellingAsYouType = False
+                self.word_app.Options.SuggestSpellingCorrections = False
+                print("✓ Spell/grammar checking disabled")
+            except Exception as e:
+                print(f"Could not disable spell/grammar checking: {e}")
+            
+            try:
+                # Additional corporate environment optimizations
+                self.word_app.Options.AutoFormatAsYouTypeApplyHeadings = False
+                self.word_app.Options.AutoFormatAsYouTypeApplyBulletedLists = False
+                self.word_app.Options.AutoFormatAsYouTypeApplyNumberedLists = False
+                print("✓ Auto-formatting disabled")
+            except Exception as e:
+                print(f"Could not disable auto-formatting: {e}")
+            
             # Test that Word is working
             doc_count = self.word_app.Documents.Count
-            print(f"Word initialized successfully. Current documents: {doc_count}")
+            print(f"Word initialized successfully with performance optimizations. Current documents: {doc_count}")
             
             return True
             
