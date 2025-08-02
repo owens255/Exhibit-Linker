@@ -60,14 +60,8 @@ The script intelligently matches various citation formats:
 
 # Quick Start
 
-**Clone the repository**
-git clone https://github.com/owens255/exhibit-linker.git
-
-**Navigate to the project directory**
-cd exhibit-linker
-
 **Install dependencies**
-pip install -r requirements.txt
+pip install pywin32 ttkbootstrap pypdf
 
 **Run the application**
 python exhibit_linker.py
