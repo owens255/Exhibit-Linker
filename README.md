@@ -9,7 +9,7 @@ As long as your exhibits are in the same folder as your PDF or are otherwise in 
 
 Further, Bates citations will open the operative PDF even if the cited page is mid-document (e.g., if SMITH_005 is found within SMITH_003.pdf, it will link to that file) and, if the output PDF is opened in Chrome, the link will even open to the correct Bates-stamped page. So, in the SMITH_005 example, the link would open a Chrome window to page 3 of that PDF.
 
-If your "parent" document and exhibits are in the same folder and hte end user will use Chrome to open your PDF, it is best that the linked documents lack spacing and periods in their filenames.  This is not an inherent issue with this script.  It is an inherent limitation of Chrome's ability to interpret hyperlinks for certain local files.  However, this script ca evenn modify the linked files' names accordingly (if the user chooses) by swapping in underscores (e.g. Ex. 1 Memo.pdf becomes Ex_1_Memo.pdf).  That way you can ensure Chrome compatability if you prefer.  If your exhibits are in a separate subfolder or your end user does will not use Chrome, such processing may be unnecessary.
+If your "parent" document and exhibits are in the same folder and the end user will use Chrome to open your PDF, it is best that the linked documents lack spacing and periods in their filenames.  This is not an inherent issue with this script.  It is an inherent limitation of Chrome's ability to interpret hyperlinks for certain local files.  However, this script ca evenn modify the linked files' names accordingly (if the user chooses) by swapping in underscores (e.g. Ex. 1 Memo.pdf becomes Ex_1_Memo.pdf).  That way you can ensure Chrome compatability if you prefer.  If your exhibits are in a separate subfolder or your end user will not use Chrome, such processing may be unnecessary.
 
 ![Screenshot A](./images/Screenshot_A1.png)
 
@@ -40,7 +40,7 @@ The script intelligently matches various citation formats:
 
 - **Exhibit References**: `Ex. 1`, `Exhibit A`
 - **Bates Numbers**: `SMITH_001`, `CASE_A_123`
-- **Page-Specific**: Opens to exact Bates page within multi-page PDFs (if PDF is viewed via Chrome -- otherwise to first page of the relevant PDF).
+- **Page-Specific**: Opens to exact page within PDFs (if PDF is viewed via Chrome -- otherwise Adobe will open the file to first page of the relevant PDF).
 
 ### 🔧 File Processing 
 
@@ -61,6 +61,7 @@ The script intelligently matches various citation formats:
 
 
 # Quick Start
+**Clone the Repo**
 
 **Install dependencies**
 pip install pywin32 ttkbootstrap pypdf
