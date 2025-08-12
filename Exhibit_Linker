@@ -2888,6 +2888,7 @@ class ExcelAutoLinker:
                             link_target = f"{relative_path}#page={page_number}"
                             screen_tip = f"Bates {file_info['bates_number']} - Page {page_number} of {os.path.basename(target_file)}"
                             print(f"  Bates link target: {link_target}")
+
                         else:
 
                             # Check for page number automation first - but only if enabled
@@ -2954,45 +2955,21 @@ class ExcelAutoLinker:
                                             print(f"  ✗ No matching exhibit ID found for '{current_exhibit_id}' in page automation")
                                 
                                 print(f"  Page automation result: exhibit_id='{exhibit_id}', page_number={page_number}")
-
-                                for pattern in self.exhibit_patterns:
-                                    match = re.search(pattern, expected_text, re.IGNORECASE)
-                                    if match:
-                                        current_exhibit_id = match.group(1)
-                                        break
                                 
-                                # Get all possible matches
-                                all_matches = self.find_page_number_in_text(context_text)
-                                
-                                # Find the match that corresponds to our current exhibit
-                                exhibit_id, page_number = None, None
-                                if all_matches and current_exhibit_id:
-                                    for match_exhibit_id, match_page_number, match_obj in all_matches:
-                                        if match_exhibit_id.upper() == current_exhibit_id.upper():
-                                            exhibit_id, page_number = match_exhibit_id, match_page_number
-                                            print(f"  ✓ Found matching exhibit ID: '{exhibit_id}' -> Page {page_number}")
-                                            break
-                                    
-                                    if not exhibit_id:
-                                        print(f"  ✗ No matching exhibit ID found for '{current_exhibit_id}' in context")
-                                
-                                print(f"  Page automation result: exhibit_id='{exhibit_id}', page_number={page_number}")
-
                                 # Set up paths and targets
-                                file_path = file_info  # Set this first, used in all cases
-                                relative_path = self.get_relative_path_from_original_doc(file_path)
+                                target_file = file_info
+                                relative_path = self.get_relative_path_for_excel(target_file)
                                 
                                 if exhibit_id and page_number:
                                     # Page automation mode - link to specific page
                                     link_target = f"{relative_path}#page={page_number}"
-                                    screen_tip = f"Link to {os.path.basename(file_path)} page {page_number}"
-                                    print(f"  Using page automation: '{expected_text}' -> {link_target}")
+                                    screen_tip = f"Link to {os.path.basename(target_file)} page {page_number}"
+                                    print(f"  Page automation link target: {link_target}")
                                 else:
                                     # Regular exhibit mode - link to file
                                     link_target = relative_path
-                                    screen_tip = f"Link to {os.path.basename(file_path)}"
-                                print(f"  Regular exhibit link target: {link_target}")
-                            print(f"  Exhibit link target: {link_target}")
+                                    screen_tip = f"Link to {os.path.basename(file_info)}"
+                                    print(f"  Regular exhibit link target: {link_target}")
                         
                         # ENHANCED: Create Excel hyperlink with better debugging
                         try:
@@ -5292,7 +5269,7 @@ File Linking:  Linking is done by searching for specific terms in the document. 
             # Page automation toggle
             self.page_auto_check = ttk.Checkbutton(
                 left_controls_frame,
-                text="Automate Page Number Links (Applies to PDF Output Only)",
+                text="Automate Page Number Links",
                 variable=self.page_automation_var,
                 command=self.on_page_automation_toggled,
                 bootstyle="warning-round-toggle"
