@@ -40,7 +40,7 @@ The script intelligently matches various citation formats:
 
 - **Exhibit References**: `Ex. 1`, `Exhibit A`
 - **Bates Numbers**: `SMITH_001`, `CASE_A_123`
-- **Page-Specific**: Opens to exact page within PDFs (if PDF is viewed via Chrome -- otherwise Adobe will open the file to first page of the relevant PDF).
+- **Page-Specific**: Opens to exact page within PDFs (if PDF is viewed via Chrome -- Adobe will open the file to first page of the relevant PDF).
 
 ### 🔧 File Processing 
 
