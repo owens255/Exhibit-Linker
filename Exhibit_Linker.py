@@ -4606,7 +4606,30 @@ File Linking:  Linking is done by searching for specific terms in the document. 
         else:
             linker.set_bates_mode(False, "")
         
-        # Create progress dialog
+        # DON'T CREATE PROGRESS DIALOG HERE ANYMORE!
+        
+        # Set black hyperlinks option
+        linker.set_black_hyperlinks(self.use_black_hyperlinks.get())
+        
+        # Configure page automation if enabled
+        if not self.word_submode_var.get() == "bates" and self.page_automation_var.get():
+            citation = self.exemplary_citation_var.get().strip()
+            page_str = self.exemplary_page_var.get().strip()
+            
+            if citation and page_str:
+                try:
+                    page_num = int(page_str)
+                    linker.set_page_automation(True, citation, page_num)
+                except ValueError:
+                    messagebox.showerror("Error", "Page number must be a valid integer")
+                    return
+            else:
+                messagebox.showerror("Error", "Please enter both exemplary citation and page number for page automation")
+                return
+        else:
+            linker.set_page_automation(False)
+        
+        # NOW CREATE THE PROGRESS DIALOG HERE - AFTER ALL CHECKS!
         progress_dialog = self.create_progress_dialog("Processing Word Document")
         
         mode_text = "Bates mode" if self.word_submode_var.get() == "bates" else "Exhibit mode"
@@ -4620,27 +4643,6 @@ File Linking:  Linking is done by searching for specific terms in the document. 
                 pass  # Dialog might be closed
         
         try:
-            # Set black hyperlinks option
-            linker.set_black_hyperlinks(self.use_black_hyperlinks.get())
-            
-            # Configure page automation if enabled
-            if not self.word_submode_var.get() == "bates" and self.page_automation_var.get():
-                citation = self.exemplary_citation_var.get().strip()
-                page_str = self.exemplary_page_var.get().strip()
-                
-                if citation and page_str:
-                    try:
-                        page_num = int(page_str)
-                        linker.set_page_automation(True, citation, page_num)
-                    except ValueError:
-                        messagebox.showerror("Error", "Page number must be a valid integer")
-                        return
-                else:
-                    messagebox.showerror("Error", "Please enter both exemplary citation and page number for page automation")
-                    return
-            else:
-                linker.set_page_automation(False)
-
             # Process with progress updates
             links_added = linker.process_document(progress_callback)
             
@@ -4709,7 +4711,28 @@ File Linking:  Linking is done by searching for specific terms in the document. 
         else:
             linker.set_mode("exhibit", "")
         
-        # Show progress
+        # Set black hyperlinks option
+        linker.set_black_hyperlinks(self.use_black_hyperlinks.get())
+        
+        # Configure page automation if enabled - CHECK FIRST!
+        if submode != "bates" and self.page_automation_var.get():
+            citation = self.exemplary_citation_var.get().strip()
+            page_str = self.exemplary_page_var.get().strip()
+            
+            if citation and page_str:
+                try:
+                    page_num = int(page_str)
+                    linker.set_page_automation(True, citation, page_num)
+                except ValueError:
+                    messagebox.showerror("Error", "Page number must be a valid integer")
+                    return
+            else:
+                messagebox.showerror("Error", "Please enter both exemplary citation and page number for page automation")
+                return
+        else:
+            linker.set_page_automation(False)
+        
+        # NOW show progress AFTER all validation!
         self.progress.pack(pady=10)
         self.progress.start()
         
@@ -4718,25 +4741,6 @@ File Linking:  Linking is done by searching for specific terms in the document. 
         self.root.update()
         
         try:
-            linker.set_black_hyperlinks(self.use_black_hyperlinks.get())
-            # Configure page automation if enabled
-            if submode != "bates" and self.page_automation_var.get():
-                citation = self.exemplary_citation_var.get().strip()
-                page_str = self.exemplary_page_var.get().strip()
-                
-                if citation and page_str:
-                    try:
-                        page_num = int(page_str)
-                        linker.set_page_automation(True, citation, page_num)
-                    except ValueError:
-                        messagebox.showerror("Error", "Page number must be a valid integer")
-                        return
-                else:
-                    messagebox.showerror("Error", "Please enter both exemplary citation and page number for page automation")
-                    return
-            else:
-                linker.set_page_automation(False)
-
             links_added = linker.process_excel_column()
             
             self.progress.stop()
