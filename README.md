@@ -3,7 +3,7 @@
 ## Overview
 File hyperlinking is helpful for submitting legal memoranda, investigative reports, and other documents where you want the recipient to have instantaneous access to the files cited in your work product.
 
-Exhibit Linker is a Python script that allows users to select a Word or Excel file to automatically create relative links to exhibits or Bates-stamped documents. The script reads your Word or Excel document, locates exhibit or Bates citations, uses regex to find the cited documents in a user-designed folder, and then creates relatively linked Word/Excel and PDF output files.  
+Exhibit Linker is a Python script that allows users to select a Word or Excel file and then automatically create relative links to exhibits or Bates-stamped documents. The script reads your document, locates exhibit or Bates citations, uses regex to find the cited documents in a user-designed folder, and then creates relatively linked Word/Excel and PDF output files.  
 
 As long as your exhibits are in the same folder as your PDF or are otherwise in the same relative position (e.g., the parent PDF in one folder and exhibits in a given subfolder), the linking in the output PDF or Excel will work. Even if the PDF and exhibits are moved elsewhere on your hard drive or to another PC (e.g., via email), so long as the exhibits travel with it in the same relative position, the linking will work.
 
@@ -40,7 +40,7 @@ The script intelligently matches various citation formats:
 
 - **Exhibit References**: `Ex. 1`, `Exhibit A`
 - **Bates Numbers**: `SMITH_001`, `CASE_A_123`
-- **Page-Specific**: Opens to exact page within PDFs (if PDF is viewed via Chrome -- Adobe will open the file to first page of the relevant PDF).
+- **Page-Specific**: Opens to exact page within PDFs (if PDF is viewed via Chrome -- Adobe, however, will open the file to first page of the relevant PDF).
 
 ### 🔧 File Processing 
 
