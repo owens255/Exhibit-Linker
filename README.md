@@ -53,9 +53,9 @@ The script intelligently matches various citation formats:
 
 - Ensure that Word and Excel are closed before running the script.
 
--  Save your output files to the same folder as the original Word/Excel file.
+- Save your output files to the same folder as the original Word/Excel file.
 
-- If the script feels frozen, it is likely just a hiccup.  There are multiple backup methods that it may employ if it hits a hurdle.  That takes time.
+- Always close the app by clicking the "x" button at the top right of the window.  This will ensure that your original Word settings are not altered. 
 
 - Zip your resulting files if sending to others for easy transport. 
 
