@@ -67,5 +67,5 @@ The script intelligently matches various citation formats:
 ```pip install pywin32 ttkbootstrap pypdf```
 
 **Run the application**
-```python exhibit_linker.py```
+```python Exhibit_Linker.py```
 
