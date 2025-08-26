@@ -34,9 +34,9 @@ graph TD
 ```
 
 
-### 🎯 Smart Matching Examples
+### 🎯 Smart Matching 
 
-The script intelligently matches various citation formats:
+The script intelligently matches various citation file name formats:
 
 - **Exhibit References**: `Ex. 1`, `Exhibit A`
 - **Bates Numbers**: `SMITH_001`, `CASE_A_123`
