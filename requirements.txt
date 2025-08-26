@@ -1,0 +1,19 @@
+# Exhibit Linker - Python Requirements
+# Word + Excel Hyperlink Automation Tool
+# Tested on Windows 10/11 with Python 3.8+
+
+# Required - Windows COM interface for Office automation
+pywin32==306  # For Word/Excel COM automation
+
+# Required - PDF manipulation for fixing hyperlink encoding
+pypdf==3.17.4  # For PDF reading/writing and link fixes
+
+# Required - Modern themed tkinter GUI
+ttkbootstrap==1.10.1  # For modern UI components
+
+# Optional - Enhanced Windows compatibility
+pywin32-ctypes==0.2.2  # Better COM cleanup handling
+
+# Note: tkinter comes with Python standard library
+# Note: Requires Microsoft Office (Word/Excel) installed
+# Note: Windows only - COM automation not available on Mac/Linux
