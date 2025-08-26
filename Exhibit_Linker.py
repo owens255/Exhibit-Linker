@@ -5297,7 +5297,7 @@ File Linking:  Linking is done by searching for specific terms in the document. 
             )
             self.citation_entry.pack(fill=X, pady=(2, 0))
             
-            # Exemplary page number
+            # Exemplary page number 
             page_frame = ttk.Frame(self.page_automation_frame)
             page_frame.pack(fill=X, pady=(2, 0))
             
