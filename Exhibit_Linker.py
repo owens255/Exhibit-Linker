@@ -4040,7 +4040,7 @@ class ExhibitAnchorApp:
 
 Page Citations: This script can create citations to page numbers (be it via the Page Citation or Bates stamp functions) in output PDF and Excel files.  The links will bring you to the correct page if opened via Chrome or most other browsers.  Acrobat, however, is incompatible with page linking so a specific page hyperlink opened via Acrobat will simply bring you to page 1 of the operative exhibit.  Note also that page citation mode only works with convention page numbers (e.g., page 1 or p. 55) and not alphaneumeric descriptors like JOHN_005.
 
-Processing Filenames:  If you are linking to files in the same  folder as the "parent" document, you should process the filenames which will replace periods/spaces with underscores.  This ensures compatability with browser PDF viewers which can misinterpret hyperlinks otherwise.  If the exhibits are in a subfolder, however, there should be no need to process the filenames.
+Filenames:  If you are linking to files in the same  folder as the "parent" document, you should process the filenames which will replace periods/spaces with underscores.  This ensures compatability with browser PDF viewers which can misinterpret hyperlinks otherwise.  If the exhibits are in a subfolder, however, there should be no need to process the filenames.
 
 Word:  The PDF output by this script will work out of the box.  However, if you add links to your Word document and wish to make further modifications and then save your Word document as a PDF, you should use Word's Save As feature and save as PDF.  Do not use Save as Adobe PDF or Print to PDF as they can strip away hyperlink functionality. 
 
@@ -4065,7 +4065,7 @@ File Linking:  Linking is done by searching for specific terms in the document. 
         format_bold_term("Relative Hyperlinks:")
         format_bold_term("Page Citations:")
         format_bold_term("File Linking:")
-        format_bold_term("Processing Filenames:")
+        format_bold_term("Filenames:")
         format_bold_term("Word:")
         
         # Configure the bold style
