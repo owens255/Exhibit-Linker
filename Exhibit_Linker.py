@@ -4134,7 +4134,7 @@ File Linking:  Linking is done by searching for specific terms in the document. 
 
     Requirement: Bates PDFs must be numbered sequentially"""
         
-        info_text += "\n\nCopyright © Alex Owens, 2025. All rights reserved. amo@pietragallo.com"
+        info_text += "\n\nCopyright © Alex Owens, 2025. All rights reserved."
         self.info_text_var.set(info_text)
 
     def get_word_linker(self):
